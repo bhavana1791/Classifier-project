@@ -1,0 +1,9 @@
+python=3.6   
+pandas
+numpy
+argparse
+sys
+torch
+torchvision
+torchtext
+sklearn
