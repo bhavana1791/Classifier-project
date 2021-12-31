@@ -1,0 +1,111 @@
+﻿NLP Engineer Questionnaire
+NOTE: 
+* Provide your answers to following questions in a text file.
+* You can make reasonable assumption wherever you feel it is required but you need to mention the assumptions.
+
+
+1. You have been provided a collection of documents of different categories, how would you identify the underlying latent factors or the categories of the corpus, given that category of the documents is not provided? Explain the technique.
+
+
+solution:
+first we will do some data analysis , we would extract keywords from each categories.
+then we would train a model by encoding ( keyword , category) pair,
+for a new document without category , we can feed the text of the document in our model and then category can be predicted. it is a train/test technique using deep learning.
+
+
+2. In Transformer block, if we replace Layer Normalization with Batch Normalization, what would have been the impact? Also, what is the significance of the residual connections in the transformer block?
+
+solution:
+it will decrease the performance because statistics of NLP data has lots of fluctuations across batch dimensions which results in instability. Residual connections in transformer allow gradient to flow within the network directly.
+
+
+3. Given a corpus of million documents and each document has hundreds of sentences. In each sentence, we randomly remove a word and use the other words of the sentence to predict that removed word. For that, we use a single layer neural network with 300 neurons in hidden layer. Assuming a dictionary of 100K words, comment on the feasibility of running the model and what would you do the reduce the complexity and ensuring good performance?
+
+solution :
+In my belief the model will give poor performance with high training cost.  To reduce complexity we need an optimized method. We should use proper parameters with batch dimensions and multiple layers of neurons. 
+
+
+4. Given the following sentences:
+-> Virat played well in the India Vs. New Zealand cricket match yesterday.
+-> Kids should not be allowed to play with match sticks, else they might burn their fingers.
+-> The child was asked match the following questions in his paper.
+-> He is a good match to her.
+Observe the usage of the word 'match', and explain a technique to vectorize the word, which encompasses all the usage?
+In the test data, given a sentence: "Gita is looking for a good match for her daughter".
+How do we ensure that the appropriate vectorized value is selected?
+
+
+solution:
+this is a classic problem of word-sense disambiguation. Here , we need to know the semantic of words in the text. for this purpose we got a pre-trained word vectors. One word will have a multi-dimensional vectors
+
+
+5. Let us say, you are building a model to predict a patient has cancer or not. The cost of misclassification is huge but the cost of False Positive cases i.e., identifying the patient not having cancer when he has, is costlier than the cost of False Negative cases i.e., identifying no cancer as cancer. What are the various things you would change in the model pipeline to account for this cost and get an optimized model?
+
+      solution:
+      we will use confusion matrix here. Also, The evaluation metric should include precision and recall.
+
+
+
+
+6. Let us say, we have a corpus of 100 million documents, and we have to classify the document as 'important' and 'not important'. If we have just around 100 documents per million documents to be important. How would you come out with a good classifier, especially for the 'important' ones? Also, what metric would you choose for evaluation?
+
+      solution:
+     metric TF-IDF  will suit here.  Also , cosine similarity will help with get document vectors close   together , so we can filter important documents easily.
+
+7. Let us consider a multi-class classification scenario, where we have to classify a document as Class 'A', 'B' and 'C'. Class 'A' has 97%, Class 'B' has 4% and Class 'C' has '3%' documents. Given this proportion of the documents per class, how would you come out with a good classifier, especially for Class 'B' and Class 'C'. Also, what metric would you choose for evaluation?
+solution: we can go with k- nearest neighbors. precision and recall will be good metric here
+     
+
+
+8. Using a training data corpus, we build the vocabulary which includes words such as 'smart', 'smartest', 'quickly', 'late', 'calm', 'calmly', 'quick', 'green', 'lately', 'bad', 'bright', 'brightest'. However, the test corpus has words such as 'quickest', 'greener', 'latest', 'badly'. So, how do we ensure we account for these words in the vocabulary, such that we don't increase the vocabulary size and neither end up assigning these words as unknown words. 
+
+solution :
+we will clean data using lemmatization and stemming technique.
+
+
+9. Consider a dataset which has the following sentences:
+'The minister hired a secretary because he wanted to manage his meetings and calls'.
+'The minister hired the secretary because she was great at multi-tasking'.
+How would you ensure that the implicit bias in the dataset, where 'The minister' is referenced as male (he for minister) and secretary as female (she for secretary), is taken care?
+
+solution:
+we can work with the co-reference resolution technique.
+
+
+10. For a binary text classification application, on the input layer with size fixed to 10 words per sentence, if you would build a convolutional neural network, explain its architecture? Provide the justification behind choosing the layers, the number of layers and the dimension size of each layer. 
+
+
+11. Typically, when we build a stack RNNs, how many layers do we stack? Comment on the significance of each layer. Also, when would you use stateful RNNs?
+
+
+12. The machine translation application was built on the transformer architecture which had both encoder and decoder component. Is it possible to use only the decoder component of the transformer for machine translation? Provide reasons for your answer.
+
+Solution:
+Yes, it is possible and this is where we got GPT ( generative pre-trained transformer)
+
+13. Why is masked language model performed in pre-training task of BERT any why not causal language modeling? And while masking, why is the word left unchanged 10% of the time?
+
+
+SOLUTION:
+
+
+The purpose to left 10% word unchanged is to avoid mismatch between pre-training and fine-tuning.
+we masked because BERT act bi-directional.
+
+
+14. You are given task of apple classification, with train and test data splits. However, the test data set has only green apples and train data has only red apples. Will you use a batch normalisation layer in your network? Justify your option selection.
+
+
+solution:
+
+
+Yes , batch normalization is used to bring stability in image classification problems.
+
+
+15. Consider a scenario where you are approached by a Hotel Business client with an intent of understanding their customer satisfaction based on the existing customer review data w.r.t to room quality. You have created a NLP based model to handle this scenario and hosted this model live. A month after your model went live, your client started providing laundry and restaurant services to their customers which were not available previously. And the reviews from these services are sent to your live model to evaluate the customer satisfaction 
+* What type of model would you choose to solve this problem?
+* How does the inclusion of laundry and restaurant services effect your model and how will you handle it?
+
+
+solution :
+The major problem here is keywords,  suppose if the model is not trained on these words then a prediction can be troublesome, In that way, using a pre-trained model and a pre-trained vector will be helpful here.
